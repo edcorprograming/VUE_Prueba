@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>VUE prueba</title>
+  <!-- include Vue.js from a CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.min.js"></script>
+  <!-- include Axios to make API request and retrive data from it -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        new Vue({
+            el: '#app',
+            data () {
+                return {
+                    info: null
+                }
+            },
+            mounted () {
+                 axios.get('http://jsonstub.com/etsfintech/symbols',{ 
+                    //axios.get('https://api.coindesk.com/v1/bpi/currentprice.json',{
+                    method: 'GET',
+                    headers: { // 'crossorigin':true,
+                                //'Access-Control-Allow-Credentials':true,
+                                'Content-Type': 'application/json',
+                                'JsonStub-User-Key': '9facef2e-9583-4a83-9f08-c87159f1c113',
+                                'JsonStub-Project-Key': '6ed070c1-b334-4612-8fa8-169c5e45baef'
+                             }
+                        
+                    })
+                    .then(response => (this.info = response.data.bpi.USD))
+                    .catch(error => console.log(error))
+                    
+                }
+            })
+        })
+  </script>
+</head>
+<body>
+  <div id="app">
+    {{ info }}
+  </div>
+</body>
+</html>
